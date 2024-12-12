@@ -7,7 +7,7 @@
     "body-parser": "^1.20.3",
     "demo": "file:",
     "ejs": "^3.1.10",
-    "express": "^4.21.0",
+    "express": "^4.21.2",
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
     "method-override": "^3.0.0",
@@ -20,5 +20,10 @@
   "scripts": {
     "start": "nodemon index.js",
     "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css"
+  },
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "sass-loader": "^16.0.4",
+    "style-loader": "^4.0.0"
   }
 }

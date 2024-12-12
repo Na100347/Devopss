@@ -6,10 +6,25 @@ import { connectDB } from "./config/connectDB.mjs";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import session from "express-session";
+import aboutRouter from './routes/aboutRoutes.mjs';
+import productRouter from './routes/productRoutes.mjs';
+import singleProductRouter from './routes/singleProductRoutes.mjs';
+import cartRouter from './routes/cartRoutes.mjs';
+import checkOutRouter from './routes/checkOutRoutes.mjs';
+import blogRouter from './routes/blogRoutes.mjs';
+import contactRouter from './routes/contactRoutes.mjs';
 
-connectDB();
+
+
+// Khởi tạo ứng dụng Express
 const app = express();
 const port = 3000;
+
+// Kết nối tới cơ sở dữ liệu
+connectDB();
+
+// Cấu hình middleware
+app.use(express.static("public"));
 
 app.use(
   session({
@@ -21,6 +36,11 @@ app.use(
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+// Cấu hình method-override
 app.use(
   methodOverride(function (req, res) {
     if (req.body && typeof req.body === "object" && "_method" in req.body) {
@@ -30,17 +50,28 @@ app.use(
     }
   })
 );
-// parse application/json
-app.use(bodyParser.json());
 
+// Cấu hình view engine
 app.set("view engine", "ejs");
 app.set("views", "./views");
-app.use(express.static("public"));
 
+// Định nghĩa các route
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/api/v1", apiuserRouter);
+// Sử dụng route about
+app.use('/', aboutRouter);
+app.use('/', productRouter);
+app.use('/', singleProductRouter);
+app.use('/', cartRouter);
+app.use('/', checkOutRouter);
+app.use('/', blogRouter);
+app.use('/', contactRouter);
 
+
+
+
+// Khởi động server
 app.listen(port, () => {
-  console.log("Server stated!!!");
+  console.log(`Server started on http://localhost:${port}`);
 });
