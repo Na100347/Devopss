@@ -2,7 +2,7 @@ import express from "express";
 import rootRouter from "./routes/root.mjs";
 import userRouter from "./routes/user.mjs";
 import apiuserRouter from "./routes/api.mjs";
-import { connectDB } from "./config/connectDB.mjs";
+import { userDBConnection, productDBConnection } from "./config/connectDB.mjs";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import session from "express-session";
@@ -13,6 +13,8 @@ import cartRouter from './routes/cartRoutes.mjs';
 import checkOutRouter from './routes/checkOutRoutes.mjs';
 import blogRouter from './routes/blogRoutes.mjs';
 import contactRouter from './routes/contactRoutes.mjs';
+import User from "./models/user.mjs";
+import Product from "./models/product.mjs";
 
 
 
@@ -21,7 +23,16 @@ const app = express();
 const port = 3000;
 
 // Kết nối tới cơ sở dữ liệu
-connectDB();
+// Kết nối cơ sở dữ liệu
+// Để kết nối đến "users" database
+userDBConnection.on("connected", () => {
+  console.log("Successfully connected to users database.");
+});
+
+// Để kết nối đến "productDB"
+productDBConnection.on("connected", () => {
+  console.log("Successfully connected to productDB.");
+});
 
 // Cấu hình middleware
 app.use(express.static("public"));
@@ -75,3 +86,5 @@ app.use('/', contactRouter);
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
+
+
