@@ -13,7 +13,7 @@ export const getCheckoutDetail = async (req, res) => {
       return res.status(404).send('Checkout not found');
     }
     res.render('checkout-detail', { checkout });  // Render checkout details page
-  } catch (error) {
+  } catch (error) {        
     res.status(500).send('Error fetching checkout details');
   }
 };
