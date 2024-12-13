@@ -12,6 +12,18 @@ const productDBConnection = mongoose.createConnection(
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
+// Kết nối đến database "blogDB"
+const blogDBConnection = mongoose.createConnection(
+  "mongodb+srv://vannghia16062004:SjI0tNguNRfgkiOK@users.cc7sl.mongodb.net/blogDB",
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+
+// Kết nối cho Checkout
+const checkoutDBConnection = mongoose.createConnection(
+  "mongodb+srv://vannghia16062004:SjI0tNguNRfgkiOK@users.cc7sl.mongodb.net/productDB",
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+
 // Xử lý sự kiện kết nối thành công
 userDBConnection.once("open", () => {
   console.log("Connected to users database!");
@@ -21,4 +33,4 @@ productDBConnection.once("open", () => {
   console.log("Connected to productDB database!");
 });
 
-export { userDBConnection, productDBConnection };
+export { userDBConnection, productDBConnection, blogDBConnection, checkoutDBConnection };

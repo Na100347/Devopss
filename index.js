@@ -17,7 +17,6 @@ import User from "./models/user.mjs";
 import Product from "./models/product.mjs";
 
 
-
 // Khởi tạo ứng dụng Express
 const app = express();
 const port = 3000;
@@ -78,8 +77,23 @@ app.use('/', cartRouter);
 app.use('/', checkOutRouter);
 app.use('/', blogRouter);
 app.use('/', contactRouter);
+app.use('/', checkOutRouter);
 
 
+app.post('/place-order', (req, res) => {
+  const { firstname, lastname, phone, email } = req.body;
+
+  // Kiểm tra các trường bắt buộc
+  if (!firstname || !lastname || !phone || !email) {
+    return res.status(400).json({ message: 'Tất cả các trường đều bắt buộc. Vui lòng điền đầy đủ thông tin.' });
+  }
+
+  // Xử lý đơn hàng (ví dụ: lưu vào cơ sở dữ liệu hoặc ghi log)
+  console.log(`Đơn hàng được đặt bởi ${firstname} ${lastname}. Liên hệ: ${phone}, ${email}.`);
+
+  // Gửi phản hồi thành công
+  res.status(200).json({ message: 'Đơn hàng đã được đặt thành công!' });
+});
 
 
 // Khởi động server
