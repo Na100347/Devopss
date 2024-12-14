@@ -19,7 +19,6 @@ import AdminController from "./controllers/adminController.mjs";
 const app = express();
 const port = 3000;
 
-
 app.use(cors());
 
 // Kết nối tới cơ sở dữ liệu
