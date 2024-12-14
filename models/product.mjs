@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {productDBConnection} from '../config/connectDB.mjs'
+import { productDBConnection } from '../config/connectDB.mjs'; 
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
   },
   originalPrice: {
     type: Number,
-    default: null, // Giá gốc, nếu không có thì để null
+    default: null,
   },
   image: {
     type: String,
@@ -39,9 +39,6 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-
 const Product = productDBConnection.model('Product', productSchema);
 
-
-export default Product;
-
+export default Product; // Đảm bảo có export default

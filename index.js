@@ -16,11 +16,17 @@ import contactRouter from './routes/contactRoutes.mjs';
 import adminRouter from './routes/adminRoutes.mjs';
 import User from "./models/user.mjs";
 import Product from "./models/product.mjs";
+import cors from 'cors';
+
+
 
 
 // Khởi tạo ứng dụng Express
 const app = express();
 const port = 3000;
+
+
+app.use(cors());
 
 // Kết nối tới cơ sở dữ liệu
 // Kết nối cơ sở dữ liệu

@@ -46,41 +46,88 @@
 				</div>
 			  </div>
 			  <div class="row">
-				<% products.forEach(product => { %>
-				  <div class="col-md-4 d-flex">
-					<div class="product ftco-animate">
-					  <div class="img d-flex align-items-center justify-content-center" style="background-image: url('<%= product.image %>');">
-						<div class="desc">
-						  <p class="meta-prod d-flex">
-							<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-							<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-							<a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-						  </p>
-						</div>
-					  </div>
-					  <div class="text text-center">
-						<% if (product.sale) { %>
-						  <span class="sale">Sale</span>
-						<% } else if (product.newArrival) { %>
-						  <span class="new">New Arrival</span>
-						<% } else if (product.bestSeller) { %>
-						  <span class="seller">Best Seller</span>
-						<% } %>
-						<span class="category"><%= product.category %></span>
-						<h2><%= product.name %></h2>
-						<% if (product.originalPrice) { %>
-						  <p class="mb-0">
-							<span class="price price-sale">$<%= product.originalPrice %></span> 
-							<span class="price">$<%= product.price %></span>
-						  </p>
-						<% } else { %>
-						  <span class="price">$<%= product.price %></span>
-						<% } %>
-					  </div>
-					</div>
-				  </div>
-				<% }) %>
-			  </div>
+          <% products.forEach(product => { %>
+            <div class="col-md-4 d-flex">
+              <div class="product ftco-animate">
+                <div class="img d-flex align-items-center justify-content-center" style="background-image: url('<%= product.image %>');">
+                  <div class="desc">
+                    <p class="meta-prod d-flex">
+                      <!-- Nút thêm vào giỏ hàng với data-product-id -->
+                      <a href="#" class="btn-add-to-cart d-flex align-items-center justify-content-center" data-product-id="<%= product._id %>">
+                        <span class="flaticon-shopping-bag"></span>
+                      </a>
+                      <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
+                      <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
+                    </p>
+                  </div>
+                </div>
+                <div class="text text-center">
+                  <% if (product.sale) { %>
+                    <span class="sale">Sale</span>
+                  <% } else if (product.newArrival) { %>
+                    <span class="new">New Arrival</span>
+                  <% } else if (product.bestSeller) { %>
+                    <span class="seller">Best Seller</span>
+                  <% } %>
+                  <span class="category"><%= product.category %></span>
+                  <h2><%= product.name %></h2>
+                  <% if (product.originalPrice) { %>
+                    <p class="mb-0">
+                      <span class="price price-sale">$<%= product.originalPrice %></span> 
+                      <span class="price">$<%= product.price %></span>
+                    </p>
+                  <% } else { %>
+                    <span class="price">$<%= product.price %></span>
+                  <% } %>
+                </div>
+                <!-- Nút thêm vào giỏ hàng -->
+                <a href="#" class="btn-add-to-cart d-flex align-items-center justify-content-center" data-product-id="<%= product._id %>">
+                  <span class="flaticon-shopping-bag"></span>
+                </a>
+                
+              </div>
+            </div>
+            
+          <% }) %>
+        </div>
+         
+    <script>
+      document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();  // Ngừng hành vi mặc định của link
+          
+          const productId = this.getAttribute('data-product-id');  // Lấy ID sản phẩm từ data-product-id
+          
+          // Kiểm tra xem productId có tồn tại hay không
+          if (!productId) {
+            console.error('Không tìm thấy productId');
+            return;
+          }
+      
+          // Gửi yêu cầu đến server để thêm sản phẩm vào giỏ hàng
+          fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId: productId, quantity: 1 }),  // quantity mặc định là 1
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Kiểm tra phản hồi từ server
+            if (data.message) {
+              alert(data.message);  // Hiển thị thông báo thành công
+            } else {
+              alert('Có lỗi xảy ra');
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);  // In lỗi nếu có
+          });
+        });
+      });
+    </script>
+        
 						<div class="row mt-5">
 		          <div class="col text-center">
 		            <div class="block-27">
@@ -222,8 +269,7 @@
       	</div>
       </div>
     </footer>
-    
-  
+   
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
   <script src="js/jquery.min.js"></script>
