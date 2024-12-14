@@ -13,6 +13,7 @@ import cartRouter from './routes/cartRoutes.mjs';
 import checkOutRouter from './routes/checkOutRoutes.mjs';
 import blogRouter from './routes/blogRoutes.mjs';
 import contactRouter from './routes/contactRoutes.mjs';
+import adminRouter from './routes/adminRoutes.mjs';
 import User from "./models/user.mjs";
 import Product from "./models/product.mjs";
 
@@ -78,6 +79,8 @@ app.use('/', checkOutRouter);
 app.use('/', blogRouter);
 app.use('/', contactRouter);
 app.use('/', checkOutRouter);
+app.use('/', adminRouter);
+
 
 
 app.post('/place-order', (req, res) => {
