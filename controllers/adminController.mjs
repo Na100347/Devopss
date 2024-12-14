@@ -1,7 +1,6 @@
 // Import các model cần thiết
 import User from "../models/user.mjs";
 import Product from "../models/product.mjs";
-import bcrypt from "bcryptjs";
 
 class AdminController {
   // Trang quản lý Users
@@ -26,8 +25,7 @@ class AdminController {
   static async createUser(req, res) {
     let { email, name, age, password } = req.body; // Thêm trường password từ form
     try {
-      const hashedPassword = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
-      let user = await User.create({ email, name, age, password: hashedPassword }); // Lưu user với mật khẩu mã hóa
+      let user = await User.create({ email, name, age, password }); // Lưu user với mật khẩu chưa mã hóa
       if (user) {
         res.redirect("/admin/users");
       } else {
@@ -58,10 +56,9 @@ class AdminController {
     try {
       let updateData = { email, name, age };
   
-      // Nếu trường password không rỗng, mã hóa và thêm vào dữ liệu cập nhật
+      // Nếu trường password không rỗng, thêm vào dữ liệu cập nhật mà không mã hóa
       if (password && password.trim() !== "") {
-        const hashedPassword = await bcrypt.hash(password, 10); // Mã hóa mật khẩu
-        updateData.password = hashedPassword;
+        updateData.password = password; // Lưu mật khẩu chưa mã hóa
       }
   
       await User.updateOne({ _id: id }, updateData);
@@ -99,31 +96,31 @@ class AdminController {
   }
 
   // Tạo Product mới
-static async createProduct(req, res) {
-  let { name, category, price, originalPrice, image, sale, newArrival, bestSeller } = req.body;
+  static async createProduct(req, res) {
+    let { name, category, price, originalPrice, image, sale, newArrival, bestSeller } = req.body;
 
-  // Chuyển đổi checkbox từ chuỗi "on" thành Boolean
-  sale = sale === "on";
-  newArrival = newArrival === "on";
-  bestSeller = bestSeller === "on";
+    // Chuyển đổi checkbox từ chuỗi "on" thành Boolean
+    sale = sale === "on";
+    newArrival = newArrival === "on";
+    bestSeller = bestSeller === "on";
 
-  try {
-    let product = await Product.create({
-      name,
-      category,
-      price,
-      originalPrice,
-      image,
-      sale,
-      newArrival,
-      bestSeller,
-    });
-    res.redirect("/admin/products");
-  } catch (error) {
-    console.error(error);
-    res.render("formnew_product", { title: "Add New Product", error });
+    try {
+      let product = await Product.create({
+        name,
+        category,
+        price,
+        originalPrice,
+        image,
+        sale,
+        newArrival,
+        bestSeller,
+      });
+      res.redirect("/admin/products");
+    } catch (error) {
+      console.error(error);
+      res.render("formnew_product", { title: "Add New Product", error });
+    }
   }
-}
 
   // Trang sửa Product
   static async editProduct(req, res) {
@@ -137,33 +134,33 @@ static async createProduct(req, res) {
   }
 
   // Cập nhật Product
-static async updateProduct(req, res) {
-  let id = req.params.id;
-  let { name, category, price, originalPrice, image, sale, newArrival, bestSeller } = req.body;
+  static async updateProduct(req, res) {
+    let id = req.params.id;
+    let { name, category, price, originalPrice, image, sale, newArrival, bestSeller } = req.body;
 
-  // Chuyển đổi checkbox từ chuỗi "on" thành Boolean
-  sale = sale === "on";
-  newArrival = newArrival === "on";
-  bestSeller = bestSeller === "on";
+    // Chuyển đổi checkbox từ chuỗi "on" thành Boolean
+    sale = sale === "on";
+    newArrival = newArrival === "on";
+    bestSeller = bestSeller === "on";
 
-  try {
-    await Product.updateOne({ _id: id }, {
-      name,
-      category,
-      price,
-      originalPrice,
-      image,
-      sale,
-      newArrival,
-      bestSeller,
-    });
-    res.redirect("/admin/products");
-  } catch (error) {
-    console.error(error);
-    let product = await Product.findById(id); // Lấy lại dữ liệu để hiển thị
-    res.render("formedit_product", { title: "Edit Product", product, error });
+    try {
+      await Product.updateOne({ _id: id }, {
+        name,
+        category,
+        price,
+        originalPrice,
+        image,
+        sale,
+        newArrival,
+        bestSeller,
+      });
+      res.redirect("/admin/products");
+    } catch (error) {
+      console.error(error);
+      let product = await Product.findById(id); // Lấy lại dữ liệu để hiển thị
+      res.render("formedit_product", { title: "Edit Product", product, error });
+    }
   }
-}
 
   // Xóa Product
   static async deleteProduct(req, res) {
