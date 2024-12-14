@@ -1,6 +1,6 @@
 import express from "express";
 import rootRouter from "./routes/root.mjs";
-import userRouter from "./routes/user.mjs";
+// import userRouter from "./routes/user.mjs";
 import apiuserRouter from "./routes/api.mjs";
 import { userDBConnection, productDBConnection } from "./config/connectDB.mjs";
 import bodyParser from "body-parser";
@@ -13,11 +13,15 @@ import cartRouter from './routes/cartRoutes.mjs';
 import checkOutRouter from './routes/checkOutRoutes.mjs';
 import blogRouter from './routes/blogRoutes.mjs';
 import contactRouter from './routes/contactRoutes.mjs';
+<<<<<<< HEAD
 import adminRouter from './routes/adminRoutes.mjs';
 import User from "./models/user.mjs";
 import Product from "./models/product.mjs";
 import cors from 'cors';
 
+=======
+import AdminController from "./controllers/adminController.mjs";
+>>>>>>> 44dcb16ae492f4160bf5e08bd0b5bf82877c108b
 
 
 
@@ -74,7 +78,7 @@ app.set("views", "./views");
 
 // Định nghĩa các route
 app.use("/", rootRouter);
-app.use("/users", userRouter);
+// app.use("/users", userRouter);
 app.use("/api/v1", apiuserRouter);
 // Sử dụng route about
 app.use('/', aboutRouter);
@@ -85,7 +89,24 @@ app.use('/', checkOutRouter);
 app.use('/', blogRouter);
 app.use('/', contactRouter);
 app.use('/', checkOutRouter);
-app.use('/', adminRouter);
+// app.use('/', adminRouter);
+
+// Routes for managing users
+app.get("/admin/users", AdminController.manageUsers);
+app.get("/admin/users/new", AdminController.newUser);
+app.post("/admin/users", AdminController.createUser);
+app.get("/admin/users/edit/:id", AdminController.editUser);
+app.post("/admin/users/update/:id", AdminController.updateUser);
+app.post("/admin/users/delete/:id", AdminController.deleteUser);
+
+// Routes for managing products
+app.get("/admin/products", AdminController.manageProducts);
+app.get("/admin/products/new", AdminController.newProduct);
+app.post("/admin/products/create", AdminController.createProduct);
+app.get("/admin/products/edit/:id", AdminController.editProduct);
+app.post("/admin/products/update/:id", AdminController.updateProduct);
+app.post("/admin/products/delete/:id", AdminController.deleteProduct);
+
 
 
 
