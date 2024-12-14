@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { userDBConnection } from "../config/connectDB.mjs";
 const Schema = mongoose.Schema;
 
 const userScheme = new Schema({
@@ -24,6 +25,6 @@ const userScheme = new Schema({
   },
 });
 
-const User = mongoose.model("user", userScheme); 
+const User = userDBConnection.model("user", userScheme); 
 
 export default User;
