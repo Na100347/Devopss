@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProductPage } from '../controllers/productController.mjs';
+import { getProductDetail, getProductPage } from '../controllers/productController.mjs';
 import Product from '../models/product.mjs';
 
 const router = express.Router();
@@ -16,6 +16,10 @@ router.get('/', async (req, res) => {
     res.status(500).send('Error fetching products');
   }
 });
+
+// productRouter.mjs
+router.get('/single_product/:id', getProductDetail);
+
 
 // Route: Add a new product (for testing purposes)
 router.post('/add', async (req, res) => {

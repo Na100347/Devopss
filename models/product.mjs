@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { productDBConnection } from '../config/connectDB.mjs'; 
+import { productDBConnection } from '../config/connectDB.mjs';
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -36,6 +36,14 @@ const productSchema = new mongoose.Schema({
   bestSeller: {
     type: Boolean,
     default: false,
+  },
+  description: {
+    type: String,
+    default: '', // Trường mô tả sản phẩm
+  },
+  content: {
+    type: String,
+    default: '', // Trường nội dung chi tiết sản phẩm
   },
 });
 
