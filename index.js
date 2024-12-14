@@ -13,15 +13,13 @@ import cartRouter from './routes/cartRoutes.mjs';
 import checkOutRouter from './routes/checkOutRoutes.mjs';
 import blogRouter from './routes/blogRoutes.mjs';
 import contactRouter from './routes/contactRoutes.mjs';
-<<<<<<< HEAD
-import adminRouter from './routes/adminRoutes.mjs';
+// import adminRouter from './routes/adminRoutes.mjs';
 import User from "./models/user.mjs";
 import Product from "./models/product.mjs";
 import cors from 'cors';
-
-=======
 import AdminController from "./controllers/adminController.mjs";
->>>>>>> 44dcb16ae492f4160bf5e08bd0b5bf82877c108b
+
+
 
 
 
