@@ -1,6 +1,6 @@
 import express from "express";
 import rootRouter from "./routes/root.mjs";
-import userRouter from "./routes/user.mjs";
+// import userRouter from "./routes/user.mjs";
 import apiuserRouter from "./routes/api.mjs";
 import { userDBConnection, productDBConnection } from "./config/connectDB.mjs";
 import bodyParser from "body-parser";
@@ -13,14 +13,13 @@ import cartRouter from './routes/cartRoutes.mjs';
 import checkOutRouter from './routes/checkOutRoutes.mjs';
 import blogRouter from './routes/blogRoutes.mjs';
 import contactRouter from './routes/contactRoutes.mjs';
-import User from "./models/user.mjs";
-import Product from "./models/product.mjs";
-
-
-
+import cors from 'cors';
+import AdminController from "./controllers/adminController.mjs";
 // Khởi tạo ứng dụng Express
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 // Kết nối tới cơ sở dữ liệu
 // Kết nối cơ sở dữ liệu
@@ -68,7 +67,7 @@ app.set("views", "./views");
 
 // Định nghĩa các route
 app.use("/", rootRouter);
-app.use("/users", userRouter);
+// app.use("/users", userRouter);
 app.use("/api/v1", apiuserRouter);
 // Sử dụng route about
 app.use('/', aboutRouter);
@@ -78,8 +77,42 @@ app.use('/', cartRouter);
 app.use('/', checkOutRouter);
 app.use('/', blogRouter);
 app.use('/', contactRouter);
+app.use('/', checkOutRouter);
+// app.use('/', adminRouter);
+
+// Routes for managing users
+app.get("/admin/users", AdminController.manageUsers);
+app.get("/admin/users/new", AdminController.newUser);
+app.post("/admin/users", AdminController.createUser);
+app.get("/admin/users/edit/:id", AdminController.editUser);
+app.post("/admin/users/update/:id", AdminController.updateUser);
+app.post("/admin/users/delete/:id", AdminController.deleteUser);
+
+// Routes for managing products
+app.get("/admin/products", AdminController.manageProducts);
+app.get("/admin/products/new", AdminController.newProduct);
+app.post("/admin/products/create", AdminController.createProduct);
+app.get("/admin/products/edit/:id", AdminController.editProduct);
+app.post("/admin/products/update/:id", AdminController.updateProduct);
+app.post("/admin/products/delete/:id", AdminController.deleteProduct);
 
 
+
+
+app.post('/place-order', (req, res) => {
+  const { firstname, lastname, phone, email } = req.body;
+
+  // Kiểm tra các trường bắt buộc
+  if (!firstname || !lastname || !phone || !email) {
+    return res.status(400).json({ message: 'Tất cả các trường đều bắt buộc. Vui lòng điền đầy đủ thông tin.' });
+  }
+
+  // Xử lý đơn hàng (ví dụ: lưu vào cơ sở dữ liệu hoặc ghi log)
+  console.log(`Đơn hàng được đặt bởi ${firstname} ${lastname}. Liên hệ: ${phone}, ${email}.`);
+
+  // Gửi phản hồi thành công
+  res.status(200).json({ message: 'Đơn hàng đã được đặt thành công!' });
+});
 
 
 // Khởi động server
