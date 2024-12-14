@@ -1,11 +1,11 @@
-import express from 'express';
-import {adminPage} from '../controllers/adminController.mjs';
+// import express from 'express';
+// import {adminPage} from '../controllers/adminController.mjs';
 
-const router = express.Router();
+// const router = express.Router();
 
-// Route cho trang About
-router.get('/admin', adminPage);
+// // Route cho trang About
+// router.get('/admin', adminPage);
 
 
 
-export default router;
+// export default router;
