@@ -94,21 +94,18 @@ app.use('/', checkOutRouter);
 // app.use('/', adminRouter);
 
 // Routes for managing users
-<<<<<<< HEAD
 app.get("/admin/users",  AdminController.manageUsers);
 app.get("/admin/users/new", AdminController.newUser);
 app.post("/admin/users", AdminController.createUser);
 app.get("/admin/users/edit/:id", AdminController.editUser);
 app.post("/admin/users/update/:id", AdminController.updateUser);
 app.post("/admin/users/delete/:id", AdminController.deleteUser);
-=======
 app.get("/admin/users",  isAdmin, AdminController.manageUsers);
 app.get("/admin/users/new",  isAdmin, AdminController.newUser);
 app.post("/admin/users",  isAdmin, AdminController.createUser);
 app.get("/admin/users/edit/:id",  isAdmin, AdminController.editUser);
 app.post("/admin/users/update/:id",  isAdmin, AdminController.updateUser);
 app.post("/admin/users/delete/:id",  isAdmin, AdminController.deleteUser);
->>>>>>> c5b1526ee73051b15760142121d4e3dcb56f1fbe
 
 // Routes for managing products
 app.get("/admin/products",  isAdmin, AdminController.manageProducts);
