@@ -1,21 +1,20 @@
 import express from "express";
 import rootRouter from "./routes/root.mjs";
 // import userRouter from "./routes/user.mjs";
-import apiuserRouter from "./routes/api.mjs";
-import { userDBConnection, productDBConnection } from "./config/connectDB.mjs";
 import bodyParser from "body-parser";
-import methodOverride from "method-override";
-import session from "express-session";
-import aboutRouter from './routes/aboutRoutes.mjs';
-import productRouter from './routes/productRoutes.mjs';
-import singleProductRouter from './routes/singleProductRoutes.mjs';
-import cartRouter from './routes/cartRoutes.mjs';
-import checkOutRouter from './routes/checkOutRoutes.mjs';
-import blogRouter from './routes/blogRoutes.mjs';
-import contactRouter from './routes/contactRoutes.mjs';
 import cors from 'cors';
+import session from "express-session";
+import { productDBConnection, userDBConnection } from "./config/connectDB.mjs";
 import AdminController from "./controllers/adminController.mjs";
 import { isAdmin } from "./middlewares/isAdmin.mjs";
+import aboutRouter from './routes/aboutRoutes.mjs';
+import apiuserRouter from "./routes/api.mjs";
+import blogRouter from './routes/blogRoutes.mjs';
+import cartRouter from './routes/cartRoutes.mjs';
+import checkOutRouter from './routes/checkOutRoutes.mjs';
+import contactRouter from './routes/contactRoutes.mjs';
+import productRouter from './routes/productRoutes.mjs';
+import singleProductRouter from './routes/singleProductRoutes.mjs';
 // Khởi tạo ứng dụng Express
 const app = express();
 const port = 3000;
@@ -94,12 +93,6 @@ app.use('/', checkOutRouter);
 // app.use('/', adminRouter);
 
 // Routes for managing users
-app.get("/admin/users",  AdminController.manageUsers);
-app.get("/admin/users/new", AdminController.newUser);
-app.post("/admin/users", AdminController.createUser);
-app.get("/admin/users/edit/:id", AdminController.editUser);
-app.post("/admin/users/update/:id", AdminController.updateUser);
-app.post("/admin/users/delete/:id", AdminController.deleteUser);
 app.get("/admin/users",  isAdmin, AdminController.manageUsers);
 app.get("/admin/users/new",  isAdmin, AdminController.newUser);
 app.post("/admin/users",  isAdmin, AdminController.createUser);
