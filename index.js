@@ -81,7 +81,7 @@ app.use('/', checkOutRouter);
 // app.use('/', adminRouter);
 
 // Routes for managing users
-app.get("/admin/users", AdminController.manageUsers);
+app.get("/admin/users",  AdminController.manageUsers);
 app.get("/admin/users/new", AdminController.newUser);
 app.post("/admin/users", AdminController.createUser);
 app.get("/admin/users/edit/:id", AdminController.editUser);

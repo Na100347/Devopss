@@ -3,8 +3,10 @@ import AdminController from "../controllers/adminController.mjs";
 
 const router = express.Router();
 
+
 // Routes quản lý users
 router.get("/users", AdminController.manageUsers);
+
 router.get("/users/new", AdminController.newUser);
 router.post("/users/create", AdminController.createUser);
 router.post("/users/delete/:id", AdminController.deleteUser);
