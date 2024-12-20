@@ -49,4 +49,4 @@ const productSchema = new mongoose.Schema({
 
 const Product = productDBConnection.model('Product', productSchema);
 
-export default Product; // Đảm bảo có export default
+export default Product;
