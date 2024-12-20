@@ -39,11 +39,11 @@ const productSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    default: '', // Trường mô tả sản phẩm
+    default: '',
   },
   content: {
     type: String,
-    default: '', // Trường nội dung chi tiết sản phẩm
+    default: '', 
   },
 });
 

@@ -4,14 +4,14 @@ import { checkoutDBConnection } from '../config/connectDB.mjs';
 const checkoutSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Giả sử có bảng User
+    ref: 'User', 
     required: true,
   },
   products: [
     {
       productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product', // Giả sử có bảng Product
+        ref: 'Product', 
         required: true,
       },
       quantity: {

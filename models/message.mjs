@@ -1,4 +1,3 @@
-// models/Message.mjs
 import mongoose from 'mongoose';
 import { contactDBConnection } from '../config/connectDB.mjs';
 

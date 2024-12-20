@@ -49,8 +49,8 @@
                         <p class="mb-0"><a href="/re" class="mr-2">Sign Up</a> <a href="/login">Log In</a></p>
                     </div>
 					<div class="greeting" id="greeting-message" style="display:none;">
-						<p class="mb-0 d-flex align-items-center" id="greeting-text">
-						  Hello, <span id="username">User</span>!
+						<p class="mb-0 d-flex align-items-center" id="greeting-text" style="color: white; font-weight:bold;">
+						  Hello<span id="username"></span>!
 						  <button id="logout-btn" class="btn btn-danger ml-3" onclick="logout()">Log Out</button>
 						</p>
 					  </div>
@@ -152,7 +152,7 @@
         function checkLoginStatus() {
 			const isLoggedIn = true; 
 			if (isLoggedIn) {
-			  const username = "Admin"; 
+			  const username = "customers"; 
 			  document.getElementById("username").textContent = username;
 			  document.getElementById("auth-buttons").style.display = "none";
 			  document.getElementById("auth-links").style.display = "none";
@@ -176,6 +176,8 @@
 		  checkLoginStatus();
 		  
     </script>
+   
+    
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -193,5 +195,4 @@
     <script src="js/main.js"></script>
 
 </body>
-
 </html>

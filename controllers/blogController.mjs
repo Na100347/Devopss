@@ -1,4 +1,3 @@
-//controllers/blogController.mjs
 import Blog from '../models/blog.mjs';
 
 // Lấy danh sách blog

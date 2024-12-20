@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { productDBConnection } from '../config/connectDB.mjs';
-import Product from '../models/product.mjs'; // Đảm bảo đường dẫn đúng
+import Product from '../models/product.mjs';
 
 const cartSchema = new mongoose.Schema({
   items: [
