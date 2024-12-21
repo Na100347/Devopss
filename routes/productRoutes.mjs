@@ -4,10 +4,8 @@ import Product from '../models/product.mjs';
 
 const router = express.Router();
 
-// Trên productController
 router.get('/product', getProductPage);
 
-// Route: Get the list of products for the homepage
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
@@ -17,11 +15,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-// productRouter.mjs
 router.get('/single_product/:id', getProductDetail);
 
 
-// Route: Add a new product (for testing purposes)
 router.post('/add', async (req, res) => {
   try {
     const { name, price, description, image } = req.body;
