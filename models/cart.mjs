@@ -20,7 +20,6 @@ const cartSchema = new mongoose.Schema({
   ],
 });
 
-// Sử dụng kết nối 'productDBConnection' để tạo model
 const Cart = productDBConnection.model('Cart', cartSchema);
 
 export default Cart;
