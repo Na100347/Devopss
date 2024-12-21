@@ -1,12 +1,9 @@
-import Product from "../models/product.mjs"; // Model của Product
+import Product from "../models/product.mjs"; 
 
-// Hàm lấy danh sách sản phẩm
 const getProductPage = async (req, res) => {
   try {
-    // Lấy danh sách sản phẩm từ MongoDB
     const products = await Product.find();
 
-    // Tạo danh sách loại sản phẩm (categories) dựa trên sản phẩm
     const categories = [...new Set(products.map((product) => product.category))];
 
     res.render("product", {
@@ -19,7 +16,6 @@ const getProductPage = async (req, res) => {
   }
 };
 
-// Hàm lấy chi tiết sản phẩm theo ID
 const getProductDetail = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -33,6 +29,5 @@ const getProductDetail = async (req, res) => {
 };
 
 
-// Export các hàm
 export { getProductDetail, getProductPage };
 

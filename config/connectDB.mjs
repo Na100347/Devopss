@@ -36,20 +36,16 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-// Load environment variables
 dotenv.config();
 
-// Lấy URI từ biến môi trường
 const mongoURI = process.env.MONGO_URI;
 
-// Kết nối đến các cơ sở dữ liệu
 const userDBConnection = mongoose.createConnection(`${mongoURI}/users`);
 const productDBConnection = mongoose.createConnection(`${mongoURI}/productDB`);
 const blogDBConnection = mongoose.createConnection(`${mongoURI}/blogDB`);
 const checkoutDBConnection = mongoose.createConnection(`${mongoURI}/productDB`);
 const contactDBConnection = mongoose.createConnection(`${mongoURI}/contactDB`);
 
-// Xử lý sự kiện kết nối thành công
 userDBConnection.once('open', () => {
   console.log('Connected to users database!');
 });
