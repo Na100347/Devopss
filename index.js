@@ -17,8 +17,7 @@ import productRouter from './routes/productRoutes.mjs';
 import singleProductRouter from './routes/singleProductRoutes.mjs';
 // Khởi tạo ứng dụng Express
 const app = express();
-const port = 3000;
-
+const port = process.env.PORT || 3000;
 app.use(cors());
 
 app.use(
